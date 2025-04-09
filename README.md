@@ -20,7 +20,7 @@ All that you need to do is to add an attribute `data-attributes-sets` with the l
 
 1. Add a library to the webpage using the CDN:
 ```html
-<script src="//cdn.jsdelivr.net/gh/MurzNN/html-attributes-sets@v0.1/dist/browser/min/index.js" type="module"></script>
+<script src="//cdn.jsdelivr.net/gh/MurzNN/html-attribute-sets@v0.1/dist/browser/min/index.js" type="module"></script>
 ```
 or any other approach.
 
