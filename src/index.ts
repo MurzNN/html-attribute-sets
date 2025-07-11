@@ -140,4 +140,4 @@ function applyAttributesSet({
   });
 }
 
-window.applyAttributesSet = applyAttributesSet;
+(window as any).applyAttributesSet = applyAttributesSet;

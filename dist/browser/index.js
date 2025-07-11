@@ -31,9 +31,9 @@ function applyAttributesSet(_a) {
             return;
         }
         var settings = {};
-        for (var setData in settingsRaw) {
+        var _loop_1 = function (setOriginalName) {
             // Support comma-separated list of keys.
-            var setNames = setData.split(',');
+            var setNames = setOriginalName.split(',');
             setNames.forEach(function (key) {
                 if (setsList) {
                     if (key.endsWith('+')) {
@@ -59,8 +59,11 @@ function applyAttributesSet(_a) {
                         return;
                     }
                 }
-                settings[key.trim()] = settingsRaw[key];
+                settings[key.trim()] = settingsRaw[setOriginalName];
             });
+        };
+        for (var setOriginalName in settingsRaw) {
+            _loop_1(setOriginalName);
         }
         return settings;
     }
@@ -114,14 +117,4 @@ function applyAttributesSet(_a) {
         }
     });
 }
-// Make available globally if window exists (browser environment)
-if (typeof window !== 'undefined') {
-    window.applyAttributesSet = applyAttributesSet;
-}
-// Export for module systems (CommonJS, ES6 modules)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = applyAttributesSet;
-    module.exports.default = applyAttributesSet;
-}
-// ES6 module export - this will be handled by the build system
-export default applyAttributesSet;
+window.applyAttributesSet = applyAttributesSet;
