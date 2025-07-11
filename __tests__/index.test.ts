@@ -39,6 +39,165 @@ describe('applyAttributesSet', () => {
     expect(elMatch.className).toBe('test-class2');
   });
 
-  // @todo Write more tests.
+  it('overwrites existing attributes in overwrite mode (default)', () => {
+    document.body.innerHTML = /*html*/ `
+      <div class="existing-class" data-attr-sets='{"set1": {"class": "new-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1', mode: 'overwrite' });
+    expect(el.className).toBe('new-class');
+  });
+
+  it('appends to existing attributes in append mode', () => {
+    document.body.innerHTML = /*html*/ `
+      <div class="existing-class" data-attr-sets='{"set1": {"class": "new-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1', mode: 'append' });
+    expect(el.className).toBe('existing-class new-class');
+  });
+
+  it('does not overwrite existing attributes in create mode', () => {
+    document.body.innerHTML = /*html*/ `
+      <div class="existing-class" data-attr-sets='{"set1": {"class": "new-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1', mode: 'create' });
+    expect(el.className).toBe('existing-class');
+  });
+
+  it('sets new attributes in create mode when they do not exist', () => {
+    document.body.innerHTML = /*html*/ `
+      <div data-attr-sets='{"set1": {"class": "new-class", "id": "test-id"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1', mode: 'create' });
+    expect(el.className).toBe('new-class');
+    expect(el.id).toBe('test-id');
+  });
+
+  it('removes attributes when value is null', () => {
+    document.body.innerHTML = /*html*/ `
+      <div class="existing-class" data-attr-sets='{"set1": {"class": null}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1' });
+    expect(el.hasAttribute('class')).toBe(false);
+  });
+
+  it('handles string values as class attribute', () => {
+    document.body.innerHTML = /*html*/ `
+      <div data-attr-sets='{"set1": "string-class"}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1' });
+    expect(el.className).toBe('string-class');
+  });
+
+  it('respects element-specific mode attribute', () => {
+    document.body.innerHTML = /*html*/ `
+      <div class="existing-class" data-attr-sets='{"set1": {"class": "new-class"}}' data-attr-sets-mode="append">
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1', mode: 'overwrite' });
+    expect(el.className).toBe('existing-class new-class');
+  });
+
+  it('handles comma-separated set names', () => {
+    document.body.innerHTML = /*html*/ `
+      <div data-attr-sets='{"set1,set2": {"class": "shared-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1' });
+    expect(el.className).toBe('shared-class');
+
+    applyAttributesSet({ set: 'set2' });
+    expect(el.className).toBe('shared-class');
+  });
+
+  it('handles setsList with plus notation', () => {
+    document.body.innerHTML = /*html*/ `
+      <div data-attr-sets='{"set2+": {"class": "test-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({
+      set: 'set3',
+      setsList: ['set1', 'set2', 'set3', 'set4']
+    });
+    expect(el.className).toBe('test-class');
+  });
+
+  it('handles setsList with minus notation', () => {
+    document.body.innerHTML = /*html*/ `
+      <div data-attr-sets='{"set3-": {"class": "test-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({
+      set: 'set2',
+      setsList: ['set1', 'set2', 'set3', 'set4']
+    });
+    expect(el.className).toBe('test-class');
+  });
+
+  it('ignores invalid JSON in data attribute', () => {
+    document.body.innerHTML = /*html*/ `
+      <div data-attr-sets='invalid-json'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1' });
+    expect(el.className).toBe('');
+  });
+
+  it('sets applied and initial attributes', () => {
+    document.body.innerHTML = /*html*/ `
+      <div class="initial-class" data-attr-sets='{"set1": {"class": "new-class"}}'>
+      </div>
+      `;
+    const el = document.querySelector('div')!;
+
+    applyAttributesSet({ set: 'set1' });
+    expect(el.hasAttribute('data-attr-sets-applied')).toBe(true);
+    expect(el.getAttribute('data-attr-sets-initial')).toBe('{"class":"initial-class"}');
+  });
+
+  it('applies attributes within specified context', () => {
+    document.body.innerHTML = /*html*/ `
+      <div id="context">
+        <div class="target" data-attr-sets='{"set1": {"class": "new-class"}}'>
+        </div>
+      </div>
+      <div class="outside" data-attr-sets='{"set1": {"class": "should-not-change"}}'>
+      </div>
+      `;
+    const context = document.querySelector('#context')!;
+    const target = document.querySelector('.target')!;
+    const outside = document.querySelector('.outside')!;
+
+    applyAttributesSet({ set: 'set1', context });
+    expect(target.className).toBe('new-class');
+    expect(outside.className).toBe('outside');
+  });
 
 });

@@ -14,7 +14,7 @@ The easiest and the most popular approach to implement this is to put this compo
 
 To resolve this task, I created a JS library that automates this feature, which makes swapping HTML tag classes and attributes easy and automatic, and even without any custom JS code!
 
-All that you need to do is to add an attribute `data-attributes-sets` with the list of classes per breakpoint (device type). 
+All that you need to do is to add an attribute `data-attr-sets` with the list of classes per breakpoint (device type).
 
 ## Usage
 
@@ -26,7 +26,7 @@ or any other approach.
 
 2. And just describe needed class sets per breakpoint in the HTML attribute of the needed tag, here is an example:
 ```html
-<div data-attributes-sets='{
+<div data-attr-sets='{
   "sm-": "btn btn-primary",
   "md": "btn btn-secondary",
   "lg+": "btn btn-success"
@@ -43,14 +43,14 @@ To automate triggering the attributes swap on the breakpoint change, you can use
 
 Here is a more detailed example of a component that is represented as dropdowns for all breakpoints more than "md" and as accordion for "sm" and less, and uses the (breakpoints-js)[https://github.com/thecreation/breakpoints-js] library to trigger swapping when the breakpoint changes.
 ```html
-<div id="my-responsive-component" data-attributes-sets='{"sm-":"accordion","md+":""}'>
-  <div data-attributes-sets='{"sm-":"accordion-item","md+":"dropdown"}'>
-    <button data-attributes-sets='{"sm-":{"class":"accordion-header accordion-button collapsed","data-bs-toggle":"collapse"},"md+":{"class":"btn btn-outline-primary dropdown-toggle","data-bs-toggle":"dropdown"}}' type="button" data-bs-parent="#my-responsive-component" data-bs-target="#my-item-1-body">Header 1</button>
-      <div data-attributes-sets='{"sm-":"accordion-body collapse","md+":"dropdown-menu"}' id="my-item-1-body" data-bs-parent="#my-responsive-component">Body 1</div>
+<div id="my-responsive-component" data-attr-sets='{"sm-":"accordion","md+":""}'>
+  <div data-attr-sets='{"sm-":"accordion-item","md+":"dropdown"}'>
+    <button data-attr-sets='{"sm-":{"class":"accordion-header accordion-button collapsed","data-bs-toggle":"collapse"},"md+":{"class":"btn btn-outline-primary dropdown-toggle","data-bs-toggle":"dropdown"}}' type="button" data-bs-parent="#my-responsive-component" data-bs-target="#my-item-1-body">Header 1</button>
+      <div data-attr-sets='{"sm-":"accordion-body collapse","md+":"dropdown-menu"}' id="my-item-1-body" data-bs-parent="#my-responsive-component">Body 1</div>
   </div>
-  <div data-attributes-sets='{"sm-":"accordion-item","md+":"dropdown"}'>
-    <button data-attributes-sets='{"sm-":{"class":"accordion-header accordion-button collapsed","data-bs-toggle":"collapse"},"md+":{"class":"btn btn-outline-primary dropdown-toggle","data-bs-toggle":"dropdown"}}' type="button" data-bs-parent="#my-responsive-component" data-bs-target="#my-item-2-body">Header 2</button>
-      <div data-attributes-sets='{"sm-":"accordion-body collapse","md+":"dropdown-menu"}' id="my-item-2-body" data-bs-parent="#my-responsive-component">Body 2</div>
+  <div data-attr-sets='{"sm-":"accordion-item","md+":"dropdown"}'>
+    <button data-attr-sets='{"sm-":{"class":"accordion-header accordion-button collapsed","data-bs-toggle":"collapse"},"md+":{"class":"btn btn-outline-primary dropdown-toggle","data-bs-toggle":"dropdown"}}' type="button" data-bs-parent="#my-responsive-component" data-bs-target="#my-item-2-body">Header 2</button>
+      <div data-attr-sets='{"sm-":"accordion-body collapse","md+":"dropdown-menu"}' id="my-item-2-body" data-bs-parent="#my-responsive-component">Body 2</div>
   </div>
 </div>
 ```

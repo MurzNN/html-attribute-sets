@@ -1,29 +1,58 @@
+type attributeName = string;
+type attributeValue = string|null;
+type setData = string | Record<attributeName, attributeValue>;
+type setName = string;
+type setsCollection = Record<setName, setData>;
+
+/**
+ * Applies a set of attributes to elements based on a specified set name.
+ *
+ * The attributes are defined in a JSON string stored in a data attribute on the elements.
+ * The function can be used to apply attributes to elements in a specific context (e.g.,
+ * a specific part of the document) and can handle multiple sets of attributes.
+ *
+ * @param {Object} options - The options for applying the attributes set.
+ * @param {string} options.set - The name of the set to apply.
+ * @param {Document|Element} [options.context=document] - The context in which to apply the attributes.
+ * @param {string[]} [options.setsList=undefined] - A list of all possible sets to handle special cases
+ * (e.g., `set+` to apply all sets starting from a specific set,
+ * `set-` to apply all sets up to a specific set).
+ * @param {string} [options.attributeName='data-attr-sets'] - The name of the data attribute that contains the JSON string with the attributes.
+ * @param {boolean} [options.mode='overwrite'|'append'|'create'] - If false, disables overwriting existing attributes if they are already set.
+ * Useful to keep the predefined attributes intact.
+ */
 function applyAttributesSet({
   set,
   context = document,
   setsList = undefined,
   attributeName = 'data-attr-sets',
-  onlyEmpty = false,
+  mode = 'overwrite',
 }: {
   set: string;
-  context?: Document | HTMLElement;
+  context?: Document | Element;
   setsList?: string[];
   attributeName?: string;
-  onlyEmpty?: boolean;
+  mode?: 'overwrite'|'append'|'create';
 }): void {
+  // An attribute name to store the applied flag, that indicates that the attributes sets applied to the element.
+  const attrNameApplied = `${attributeName}-applied`;
+
+  // An attribute name to store the initial value of the attribute before first applying.
+  const attrNameInitial = `${attributeName}-initial`;
+
   function parseSettings(string: string): Record<string, any> | undefined {
     let settingsRaw: Record<string, any>;
     try {
       settingsRaw = JSON.parse(string);
     } catch (e) {
-      console.error(`Error parsing AttributesSets JSON settings from the string`, string);
+      console.error(`Error parsing Attributes Sets JSON settings from the string`, string);
       return;
     }
 
-    const settings: Record<string, any> = {};
-    for (const setData in settingsRaw) {
+    const settings: setsCollection = {};
+    for (const setOriginalName in settingsRaw) {
       // Support comma-separated list of keys.
-        const setNames = setData.split(',');
+      const setNames = setOriginalName.split(',');
       setNames.forEach(key => {
         if (setsList) {
           if (key.endsWith('+')) {
@@ -48,38 +77,67 @@ function applyAttributesSet({
             return;
           }
         }
-        settings[key.trim()] = settingsRaw[key];
+        settings[key.trim()] = settingsRaw[setOriginalName];
       });
     }
+
     return settings;
   }
 
   context.querySelectorAll(`[${attributeName}]`).forEach(el => {
+    const modeLocal = el.getAttribute(`${attributeName}-mode`) || mode;
     const settings = parseSettings(el.getAttribute(attributeName) || '');
     if (!settings || settings[set] === undefined) {
       return;
     }
-    let attributes = settings[set];
+    let attributesSet = settings[set];
 
     // If the attributes list is a string, precess it as the class attribute.
-    if (typeof attributes === 'string') {
-      attributes = { class: attributes };
+    if (typeof attributesSet === 'string') {
+      attributesSet = { class: attributesSet };
     }
 
-    for (const key in attributes) {
-      if (attributes.hasOwnProperty(key)) {
-        if (onlyEmpty && el.hasAttribute(key)) {
+    let attributesInitial: Record<attributeName, attributeValue>;
+    let attributesInitialSet: boolean = false;
+
+    if(el.hasAttribute(attrNameInitial)) {
+      attributesInitial = JSON.parse(el.getAttribute(attrNameInitial) || '{}' );
+      attributesInitialSet = true;
+    } else {
+      attributesInitial = {};
+    }
+
+
+    for (const key in attributesSet) {
+      const attrValue = el.getAttribute(key);
+      if(!attributesInitialSet) {
+        attributesInitial[key] = attrValue;
+      }
+      // Skip processing if the attribute is not empty.
+      if(
+        modeLocal == 'create'
+        && (attrValue != null && attrValue !== '')
+       ) {
           continue;
         }
-        const value = attributes[key];
-        if (value === null) {
+
+        if (attributesSet[key] === null) {
           el.removeAttribute(key);
         } else {
-          el.setAttribute(key, value);
+        if (modeLocal === 'append' && attrValue) {
+          // Append the new value to the existing one.
+          el.setAttribute(key, `${attributesInitial[key]} ${attributesSet[key]}`);
+        } else {
+          // Overwrite the existing value or set a new one.
+          el.setAttribute(key, attributesSet[key]);
         }
       }
     }
+        el.setAttribute(attrNameApplied, '1');
+      if(!attributesInitialSet) {
+        el.setAttribute(attrNameInitial, JSON.stringify(attributesInitial));
+      }
   });
 }
 
-export default applyAttributesSet;
+window.applyAttributesSet = applyAttributesSet;
