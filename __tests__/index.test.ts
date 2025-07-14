@@ -1,4 +1,9 @@
-import applyAttributesSet from '../src/index';
+// Make this file a module
+export {};
+
+// Import for Jest testing - use dynamic require to work around module: "none" limitation
+const applyAttributesSetModule = require('../src/index.ts');
+const applyAttributesSet = applyAttributesSetModule.default || applyAttributesSetModule;
 
 describe('applyAttributesSet', () => {
 

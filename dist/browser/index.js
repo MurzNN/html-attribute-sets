@@ -118,3 +118,15 @@ function applyAttributesSet(_a) {
     });
 }
 window.applyAttributesSet = applyAttributesSet;
+// Export for module usage (Jest tests, etc.) - only when modules are supported
+if (typeof module !== 'undefined' && module.exports) {
+    // CommonJS environment
+    module.exports = applyAttributesSet;
+    module.exports.default = applyAttributesSet;
+}
+else if (typeof window !== 'undefined' && typeof window.define === 'function' && window.define.amd) {
+    // AMD environment
+    window.define([], function () {
+        return applyAttributesSet;
+    });
+}

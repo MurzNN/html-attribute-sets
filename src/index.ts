@@ -141,3 +141,15 @@ function applyAttributesSet({
 }
 
 (window as any).applyAttributesSet = applyAttributesSet;
+
+// Export for module usage (Jest tests, etc.) - only when modules are supported
+if (typeof module !== 'undefined' && module.exports) {
+  // CommonJS environment
+  module.exports = applyAttributesSet;
+  module.exports.default = applyAttributesSet;
+} else if (typeof window !== 'undefined' && typeof (window as any).define === 'function' && (window as any).define.amd) {
+  // AMD environment
+  (window as any).define([], function() {
+    return applyAttributesSet;
+  });
+}
