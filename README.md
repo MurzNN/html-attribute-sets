@@ -41,7 +41,7 @@ You can see the functionality in action on the [demo page
 
 1. Add a library to the webpage using the CDN:
 ```html
-<script src="//cdn.jsdelivr.net/npm/html-attribute-sets@1.0.0/dist/browser/min/index.js"></script>
+<script src="//cdn.jsdelivr.net/npm/html-attribute-sets/dist/browser/min/index.js"></script>
 ```
 or any other approach.
 
