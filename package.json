@@ -1,5 +1,5 @@
 {
-  "name": "html-attributes-sets",
+  "name": "html-attribute-sets",
   "description": "A library for managing and manipulating sets of HTML attributes. Useful for toggling CSS classes per breakpoint. For example, display an element in Bootstrap as Dropdown for desktop, and as Accordion for mobile.",
   "devDependencies": {
     "@types/jest": "^29.5.14",

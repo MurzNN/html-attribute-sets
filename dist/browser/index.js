@@ -15,7 +15,7 @@
  * @param {boolean} [options.mode='overwrite'|'append'|'create'] - If false, disables overwriting existing attributes if they are already set.
  * Useful to keep the predefined attributes intact.
  */
-function applyAttributesSet(_a) {
+function AttributeSetApply(_a) {
     var set = _a.set, _b = _a.context, context = _b === void 0 ? document : _b, _c = _a.setsList, setsList = _c === void 0 ? undefined : _c, _d = _a.attributeName, attributeName = _d === void 0 ? 'data-attr-sets' : _d, _e = _a.mode, mode = _e === void 0 ? 'overwrite' : _e;
     // An attribute name to store the applied flag, that indicates that the attributes sets applied to the element.
     var attrNameApplied = "".concat(attributeName, "-applied");
@@ -117,16 +117,16 @@ function applyAttributesSet(_a) {
         }
     });
 }
-window.applyAttributesSet = applyAttributesSet;
+window.AttributeSetApply = AttributeSetApply;
 // Export for module usage (Jest tests, etc.) - only when modules are supported
 if (typeof module !== 'undefined' && module.exports) {
     // CommonJS environment
-    module.exports = applyAttributesSet;
-    module.exports.default = applyAttributesSet;
+    module.exports = AttributeSetApply;
+    module.exports.default = AttributeSetApply;
 }
 else if (typeof window !== 'undefined' && typeof window.define === 'function' && window.define.amd) {
     // AMD environment
     window.define([], function () {
-        return applyAttributesSet;
+        return AttributeSetApply;
     });
 }

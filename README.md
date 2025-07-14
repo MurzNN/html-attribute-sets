@@ -38,6 +38,9 @@ Actually, the library doesn't depend on Bootstrap, you can use it with any front
 
 To automate triggering the attributes swap on the breakpoint change, you can use any approach that you want.
 
+## Demo
+
+You can see the functionality in action on the [demo page »]()
 
 ## Example
 
@@ -62,11 +65,11 @@ Breakpoints();
 
 const breakpointsList = Breakpoints.all();
 // Set initial classes on the element load.
-applyAttributesSet({ set: Breakpoints.current().name, context, setsList: breakpointsList, onlyEmpty: true });
+AttributeSetApply({ set: Breakpoints.current().name, context, setsList: breakpointsList, onlyEmpty: true });
 
 // Apply attributes on changing the breakpoint.
 Breakpoints.on('change', function () {
-  applyAttributesSet({ set: this.current.name, setsList: breakpointsList });
+  AttributeSetApply({ set: this.current.name, setsList: breakpointsList });
 });
 ```
 

@@ -2,10 +2,10 @@
 export {};
 
 // Import for Jest testing - use dynamic require to work around module: "none" limitation
-const applyAttributesSetModule = require('../src/index.ts');
-const applyAttributesSet = applyAttributesSetModule.default || applyAttributesSetModule;
+const AttributeSetApplyModule = require('../src/index.ts');
+const AttributeSetApply = AttributeSetApplyModule.default || AttributeSetApplyModule;
 
-describe('applyAttributesSet', () => {
+describe('AttributeSetApply', () => {
 
   beforeEach(() => {
     document.body.innerHTML = '';
@@ -21,13 +21,13 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.className).toBe('test-class');
 
-    applyAttributesSet({ set: 'set2' });
+    AttributeSetApply({ set: 'set2' });
     expect(el.className).toBe('test-class2');
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.className).toBe('test-class');
   });
 
@@ -39,7 +39,7 @@ describe('applyAttributesSet', () => {
     const elNoMatch = document.querySelector('#nomatch')!;
     const elMatch = document.querySelector('#match')!;
 
-    applyAttributesSet({ set: 'my-set1', attributeName: 'my-attrs' });
+    AttributeSetApply({ set: 'my-set1', attributeName: 'my-attrs' });
     expect(elNoMatch.className).toBe('');
     expect(elMatch.className).toBe('test-class2');
   });
@@ -51,7 +51,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1', mode: 'overwrite' });
+    AttributeSetApply({ set: 'set1', mode: 'overwrite' });
     expect(el.className).toBe('new-class');
   });
 
@@ -62,7 +62,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1', mode: 'append' });
+    AttributeSetApply({ set: 'set1', mode: 'append' });
     expect(el.className).toBe('existing-class new-class');
   });
 
@@ -73,7 +73,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1', mode: 'create' });
+    AttributeSetApply({ set: 'set1', mode: 'create' });
     expect(el.className).toBe('existing-class');
   });
 
@@ -84,7 +84,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1', mode: 'create' });
+    AttributeSetApply({ set: 'set1', mode: 'create' });
     expect(el.className).toBe('new-class');
     expect(el.id).toBe('test-id');
   });
@@ -96,7 +96,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.hasAttribute('class')).toBe(false);
   });
 
@@ -107,7 +107,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.className).toBe('string-class');
   });
 
@@ -118,7 +118,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1', mode: 'overwrite' });
+    AttributeSetApply({ set: 'set1', mode: 'overwrite' });
     expect(el.className).toBe('existing-class new-class');
   });
 
@@ -129,10 +129,10 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.className).toBe('shared-class');
 
-    applyAttributesSet({ set: 'set2' });
+    AttributeSetApply({ set: 'set2' });
     expect(el.className).toBe('shared-class');
   });
 
@@ -143,7 +143,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({
+    AttributeSetApply({
       set: 'set3',
       setsList: ['set1', 'set2', 'set3', 'set4']
     });
@@ -157,7 +157,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({
+    AttributeSetApply({
       set: 'set2',
       setsList: ['set1', 'set2', 'set3', 'set4']
     });
@@ -171,7 +171,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.className).toBe('');
   });
 
@@ -182,7 +182,7 @@ describe('applyAttributesSet', () => {
       `;
     const el = document.querySelector('div')!;
 
-    applyAttributesSet({ set: 'set1' });
+    AttributeSetApply({ set: 'set1' });
     expect(el.hasAttribute('data-attr-sets-applied')).toBe(true);
     expect(el.getAttribute('data-attr-sets-initial')).toBe('{"class":"initial-class"}');
   });
@@ -200,7 +200,7 @@ describe('applyAttributesSet', () => {
     const target = document.querySelector('.target')!;
     const outside = document.querySelector('.outside')!;
 
-    applyAttributesSet({ set: 'set1', context });
+    AttributeSetApply({ set: 'set1', context });
     expect(target.className).toBe('new-class');
     expect(outside.className).toBe('outside');
   });

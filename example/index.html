@@ -133,7 +133,7 @@ document.getElementById('breakpoint-current').textContent = breakpointInitial.na
 console.log('Initial breakpoint:', breakpointInitial.name);
 
 // Initialize the attributes sets on the document.
-applyAttributesSet({ set: Breakpoints.current().name, document, setsList: breakpointsList, onlyEmpty: true });
+AttributeSetApply({ set: Breakpoints.current().name, document, setsList: breakpointsList, onlyEmpty: true });
 
 document.getElementById('breakpoint-current').textContent = Breakpoints.current().name;
 
@@ -141,7 +141,7 @@ document.getElementById('breakpoint-current').textContent = Breakpoints.current(
 Breakpoints.on('change', function () {
   console.log('Breakpoint changed to: ' + this.current.name);
   document.getElementById('breakpoint-current').textContent = this.current.name;
-  applyAttributesSet({ set: this.current.name, setsList: breakpointsList });
+  AttributeSetApply({ set: this.current.name, setsList: breakpointsList });
 });
 </script>
 

@@ -18,10 +18,12 @@ type setsCollection = Record<setName, setData>;
  * (e.g., `set+` to apply all sets starting from a specific set,
  * `set-` to apply all sets up to a specific set).
  * @param {string} [options.attributeName='data-attr-sets'] - The name of the data attribute that contains the JSON string with the attributes.
- * @param {boolean} [options.mode='overwrite'|'append'|'create'] - If false, disables overwriting existing attributes if they are already set.
- * Useful to keep the predefined attributes intact.
+ * @param {boolean} [options.mode='overwrite'] - The mode of applying attributes:
+ * - 'overwrite' (default): Overwrites existing attributes with the new ones.
+ * - 'append': Appends the new attributes to the existing ones.
+ * - 'create': Sets new attributes only if they do not already exist.
  */
-function applyAttributesSet({
+function AttributeSetApply({
   set,
   context = document,
   setsList = undefined,
@@ -140,16 +142,16 @@ function applyAttributesSet({
   });
 }
 
-(window as any).applyAttributesSet = applyAttributesSet;
+(window as any).AttributeSetApply = AttributeSetApply;
 
 // Export for module usage (Jest tests, etc.) - only when modules are supported
 if (typeof module !== 'undefined' && module.exports) {
   // CommonJS environment
-  module.exports = applyAttributesSet;
-  module.exports.default = applyAttributesSet;
+  module.exports = AttributeSetApply;
+  module.exports.default = AttributeSetApply;
 } else if (typeof window !== 'undefined' && typeof (window as any).define === 'function' && (window as any).define.amd) {
   // AMD environment
   (window as any).define([], function() {
-    return applyAttributesSet;
+    return AttributeSetApply;
   });
 }

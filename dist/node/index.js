@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @param {boolean} [options.mode='overwrite'|'append'|'create'] - If false, disables overwriting existing attributes if they are already set.
  * Useful to keep the predefined attributes intact.
  */
-function applyAttributesSet({ set, context = document, setsList = undefined, attributeName = 'data-attr-sets', mode = 'overwrite', }) {
+function AttributeSetApply({ set, context = document, setsList = undefined, attributeName = 'data-attr-sets', mode = 'overwrite', }) {
     // An attribute name to store the applied flag, that indicates that the attributes sets applied to the element.
     const attrNameApplied = `${attributeName}-applied`;
     // An attribute name to store the initial value of the attribute before first applying.
@@ -115,15 +115,16 @@ function applyAttributesSet({ set, context = document, setsList = undefined, att
         }
     });
 }
+window.AttributeSetApply = AttributeSetApply;
 // Export for module usage (Jest tests, etc.) - only when modules are supported
 if (typeof module !== 'undefined' && module.exports) {
     // CommonJS environment
-    module.exports = applyAttributesSet;
-    module.exports.default = applyAttributesSet;
+    module.exports = AttributeSetApply;
+    module.exports.default = AttributeSetApply;
 }
 else if (typeof window !== 'undefined' && typeof window.define === 'function' && window.define.amd) {
     // AMD environment
     window.define([], function () {
-        return applyAttributesSet;
+        return AttributeSetApply;
     });
 }
