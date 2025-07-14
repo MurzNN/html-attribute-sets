@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "outDir": "./dist/browser",
     "target": "es5",
-    "module": "es2015",
+    "module": "none",
     "moduleResolution": "node",
     "lib": [
       "es2016",

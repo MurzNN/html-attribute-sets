@@ -1,7 +1,6 @@
 {
-  "name": "html-attributes-sets",
+  "name": "html-attribute-sets",
   "description": "A library for managing and manipulating sets of HTML attributes. Useful for toggling CSS classes per breakpoint. For example, display an element in Bootstrap as Dropdown for desktop, and as Accordion for mobile.",
-  "packageManager": "yarn@4.6.0",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.14.0",
@@ -15,7 +14,8 @@
   "scripts": {
     "build:node": "tsc -p tsconfig.node.json",
     "build:browser": "tsc -p tsconfig.browser.json && terser dist/browser/index.js --compress --mangle --output dist/browser/min/index.js",
-    "build": "yarn build:node && yarn build:browser",
-    "watch": "tsc -p tsconfig.browser.json --watch"
+    "build": "pnpm build:node && pnpm build:browser",
+    "watch": "tsc -p tsconfig.browser.json --watch",
+    "test": "jest"
   }
 }

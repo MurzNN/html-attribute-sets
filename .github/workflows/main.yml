@@ -1,0 +1,40 @@
+name: Run Tests and Syntax Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript syntax check
+        run: pnpm tsc --noEmit
+
+      - name: TypeScript compilation check (Node)
+        run: pnpm build:node
+
+      - name: TypeScript compilation check (Browser)
+        run: pnpm build:browser
+
+      - name: Run tests
+        run: pnpm test
