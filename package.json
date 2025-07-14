@@ -14,7 +14,7 @@
   "scripts": {
     "build:node": "tsc -p tsconfig.node.json",
     "build:browser": "tsc -p tsconfig.browser.json && terser dist/browser/index.js --compress --mangle --output dist/browser/min/index.js",
-    "build": "yarn build:node && yarn build:browser",
+    "build": "pnpm build:node && pnpm build:browser",
     "watch": "tsc -p tsconfig.browser.json --watch",
     "test": "jest"
   }
