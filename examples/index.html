@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>HTML Attributes Sets JS library demo with live examples</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+          crossorigin="anonymous"></script>
+  <!-- Breakpoints library JS -->
+  <script src="https://cdn.jsdelivr.net/gh/amazingSurge/breakpoints-js/dist/breakpoints.js"
+          crossorigin="anonymous"></script>
+  <!-- HTML Attribute Sets library JS -->
+  <script src="../dist/browser/index.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">HTML Attributes Sets JS library demo</h1>
+
+    <h2 class="text-center">Example 1: Cards/Accordion component</h2>
+    <p>
+      Below you can see a responsive element, that is represented as cards on the desktop
+      (<code>md+</code> breakpoints) and as accordion on mobile devices (<code>sm-</code>).
+    </p>
+    <p>
+      Current breakpoint: <code id="breakpoint-current">N/A</code>.
+      Resize the window height to see the responsive behavior.
+    </p>
+
+    <div data-attr-sets='{
+      "sm-": "accordion",
+      "md+": "row"
+    }' class="d-none" id="my-block-group">
+      <div data-attr-sets='{
+        "sm-": "",
+        "md+": "col-4"
+      }'>
+        <div data-attr-sets='{
+          "sm-": "accordion-item",
+          "md+": "card"
+        }'>
+          <div data-attr-sets='{
+            "sm-": "",
+            "md+": "card-body"
+          }'>
+            <div data-attr-sets='{
+              "sm-": "accordion-header",
+              "md+": "card-title h2"
+            }'>
+              <div data-attr-sets='{
+                "sm-": {
+                  "class": "btn accordion-button",
+                  "data-bs-toggle": "collapse"
+                },
+                "md+": {
+                  "class": "",
+                  "data-bs-toggle": ""
+                }
+              }' data-bs-target="#block-data-one">Block one</div>
+            </div>
+            <div id="block-data-one" data-attr-sets='{
+              "sm-": "accordion-collapse collapse show",
+              "md+": "card-text"
+            }' data-attr-sets-mode="append" class="p-3" data-bs-parent="#my-block-group">
+              Some text content that is related to block one. This section provides a brief
+              overview of the topic and introduces the most important aspects for the reader to
+              consider. By diving into the main ideas, it helps establish context and sets the
+              tone for what follows. The information here should be concise yet informative,
+              offering a solid foundation for deeper exploration.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-attr-sets='{
+        "sm-": "",
+        "md+": "col-4"
+      }'>
+        <div data-attr-sets='{
+          "sm-": "accordion-item",
+          "md+": "card"
+        }'>
+          <div data-attr-sets='{
+            "sm-": "",
+            "md+": "card-body"
+          }'>
+            <div data-attr-sets='{
+              "sm-": "accordion-header",
+              "md+": "card-title h2"
+            }'>
+              <div data-attr-sets='{
+                "sm-": {
+                  "class": "btn accordion-button collapsed",
+                  "data-bs-toggle": "collapse"
+                },
+                "md+": {
+                  "class": "",
+                  "data-bs-toggle": ""
+                }
+              }' data-bs-target="#block-data-two">Block two</div>
+            </div>
+            <div id="block-data-two" data-attr-sets='{
+              "sm-": "accordion-collapse collapse",
+              "md+": "card-text"
+            }' data-attr-sets-mode="append" class="p-3" data-bs-parent="#my-block-group">
+              Some text content that is related to block two. In this part, the focus shifts
+              to more detailed analysis and discussion, building upon the concepts introduced
+              earlier. Key points are highlighted to draw attention to crucial elements and
+              provoke further thought. The detailed explanation encourages the reader to
+              engage more deeply with the subject matter.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-attr-sets='{
+        "sm-": "",
+        "md+": "col-4"
+      }'>
+        <div data-attr-sets='{
+          "sm-": "accordion-item",
+          "md+": "card"
+        }'>
+          <div data-attr-sets='{
+            "sm-": "",
+            "md+": "card-body"
+          }'>
+            <div data-attr-sets='{
+              "sm-": "accordion-header",
+              "md+": "card-title h2"
+            }'>
+              <div data-attr-sets='{
+                "sm-": {
+                  "class": "btn accordion-button collapsed",
+                  "data-bs-toggle": "collapse"
+                },
+                "md+": {
+                  "class": "",
+                  "data-bs-toggle": ""
+                }
+              }' data-bs-target="#block-data-three">Block three</div>
+            </div>
+            <div id="block-data-three" data-attr-sets='{
+              "sm-": "accordion-collapse collapse",
+              "md+": "card-text"
+            }' data-attr-sets-mode="append" class="p-3" data-bs-parent="#my-block-group">
+              Some text content that is related to block three. This final section wraps up
+              the discussion, summarizing the previous points and offering some closing
+              insights. The content here aims to reinforce understanding and encourage
+              application of the ideas covered. Ending with a clear summary allows readers
+              to leave with a strong grasp of the main messages.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- An example of source HTML code for both element styles -->
+    <!--
+    <div class="accordion accordion-flush" id="my-block-group">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                  aria-expanded="false" aria-controls="flush-collapseOne">
+            Block one
+          </button>
+        </h2>
+        <div id="block-data-one" class="accordion-collapse collapse"
+             data-bs-parent="#my-block-group">
+          Content for the block one
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                  aria-expanded="false" aria-controls="flush-collapseTwo">
+            Block two
+          </button>
+        </h2>
+        <div id="block-data-two" class="accordion-collapse collapse"
+             data-bs-parent="#my-block-group">
+          Content for the block two
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                  aria-expanded="false" aria-controls="flush-collapseThree">
+            Block three
+          </button>
+        </h2>
+        <div id="block-data-three" class="accordion-collapse collapse"
+             data-bs-parent="#my-block-group">
+          Content for the block three
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="my-block-group">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title h2" type="button"
+                 data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                 aria-expanded="false" aria-controls="flush-collapseOne">
+              <div class="">Block one</div>
+            </div>
+            <div id="block-data-one" class="card-text"
+                 data-bs-parent="#my-block-group">
+              Content for the block one
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title h2" type="button"
+                 data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                 aria-expanded="false" aria-controls="flush-collapseOne">
+              Block two
+            </div>
+            <div id="block-data-two" class="card-text"
+                 data-bs-parent="#my-block-group">
+              Content for the block two
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title h2" type="button"
+                 data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                 aria-expanded="false" aria-controls="flush-collapseOne">
+              Block three
+            </div>
+            <div id="block-data-three" class="card-text"
+                 data-bs-parent="#my-block-group">
+              Content for the block three
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <h2 class="text-center mt-5">Example 2: Dropdown/Accordion component</h2>
+    <p>
+      Below you can see a responsive element, that is represented as dropdowns on the desktop
+      (<code>md+</code> breakpoints) and as accordion on mobile devices (<code>sm-</code>).
+    </p>
+    <p>
+      Current breakpoint: <code id="breakpoint-current">N/A</code>.
+      Resize the window height to see the responsive behavior.
+    </p>
+
+    <div id="my-responsive-component" data-attr-sets='{
+      "xs-": "accordion",
+      "sm+": "d-flex justify-content-center"
+    }'>
+      <div data-attr-sets='{
+        "xs-": "accordion-item",
+        "sm+": "dropdown m-2"
+      }'>
+        <button data-attr-sets='{
+          "xs-": {
+            "class": "accordion-header accordion-button collapsed",
+            "data-bs-toggle": "collapse",
+            "style": null
+          },
+          "sm+": {
+            "class": "btn btn-outline-primary dropdown-toggle",
+            "data-bs-toggle": "dropdown"
+          }
+        }' type="button" data-bs-parent="#my-responsive-component"
+           data-bs-target="#my-item-1-body">Group 1</button>
+        <div data-attr-sets='{
+          "xs-": "accordion-body collapse",
+          "sm+": "dropdown-menu"
+        }' id="my-item-1-body" data-bs-parent="#my-responsive-component">Item 1</div>
+      </div>
+      <div data-attr-sets='{
+        "xs-": "accordion-item",
+        "sm+": "dropdown m-2"
+      }'>
+        <button data-attr-sets='{
+          "xs-": {
+            "class": "accordion-header accordion-button collapsed",
+            "data-bs-toggle": "collapse",
+            "style": null
+          },
+          "sm+": {
+            "class": "btn btn-outline-primary dropdown-toggle",
+            "data-bs-toggle": "dropdown"
+          }
+        }' type="button" data-bs-parent="#my-responsive-component"
+           data-bs-target="#my-item-2-body">Group 2</button>
+        <div data-attr-sets='{
+          "xs-": "accordion-body collapse",
+          "sm+": "dropdown-menu"
+        }' id="my-item-2-body" data-bs-parent="#my-responsive-component">Item 2</div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize the Breakpoints library.
+      Breakpoints();
+
+      // Get the list of all breakpoints.
+      const breakpointsList = Breakpoints.all();
+
+      const breakpointInitial = Breakpoints.current();
+      document.getElementById('breakpoint-current').textContent = breakpointInitial.name;
+      console.log('Initial breakpoint:', breakpointInitial.name);
+
+      // Initialize the attributes sets on the document.
+      AttributeSetApply({
+        set: Breakpoints.current().name,
+        document,
+        setsList: breakpointsList,
+        onlyEmpty: true
+      });
+
+      document.getElementById('breakpoint-current').textContent = Breakpoints.current().name;
+
+      // Apply attributes on changing the breakpoint.
+      Breakpoints.on('change', function () {
+        console.log('Breakpoint changed to: ' + this.current.name);
+        document.getElementById('breakpoint-current').textContent = this.current.name;
+        AttributeSetApply({
+          set: this.current.name,
+          setsList: breakpointsList
+        });
+      });
+    </script>
+
+  </div>
+</body>
+
+</html>
