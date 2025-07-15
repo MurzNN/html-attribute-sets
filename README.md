@@ -37,16 +37,26 @@ classes per breakpoint (device type).
 You can see the functionality in action on the [demo page
 »](https://murznn.github.io/html-attribute-sets/examples/index.html)
 
-## Usage
+## Installation and usage
 
-1. Add a library to the webpage using the CDN:
+1. Include a JS library in your project:
+- CDN version:
 ```html
 <script src="//cdn.jsdelivr.net/npm/html-attribute-sets/dist/browser/min/index.js"></script>
 ```
-or any other approach.
+- Node.js package [`html-attribute-sets`](https://www.npmjs.com/package/html-attribute-sets)
+  (NPM, Yarn, pnpm):
+```
+npm add html-attribute-sets
+```
+- PHP Composer package [`npm-asset/html-attribute-sets`](https://asset-packagist.org/package/npm-asset/html-attribute-sets):
+```
+composer require npm-asset/html-attribute-sets
+```
+- or any other approach.
 
-2. And just describe needed class sets per breakpoint in the HTML attribute of
-   the needed tag, here is an example:
+2. And just describe the needed class sets per breakpoint in the HTML attribute
+   of the needed tag, here is an example:
 ```html
 <div data-attr-sets='{
   "sm-": "btn btn-primary",
@@ -56,10 +66,8 @@ or any other approach.
 ```
 This is just a simplified example based on Bootstrap breakpoints and classes,
 which makes the button colored blue for mobile devices, gray for tablet, and
-green for desktop.
-
-Actually, the library doesn't depend on Bootstrap, you can use it with any
-frontend framework and any breakpoints.
+green for desktop. Actually, the library doesn't depend on Bootstrap, you can 
+use it with any frontend framework and any breakpoints.
 
 To automate triggering the attributes swap on the breakpoint change, you can use
 any approach that you want.
