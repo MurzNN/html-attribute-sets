@@ -47,7 +47,7 @@ You can see the functionality in action on the [demo page
 - Node.js package [`html-attribute-sets`](https://www.npmjs.com/package/html-attribute-sets)
   (NPM, Yarn, pnpm):
 ```
-npm add html-attribute-sets
+npm install html-attribute-sets
 ```
 - PHP Composer package [`npm-asset/html-attribute-sets`](https://asset-packagist.org/package/npm-asset/html-attribute-sets):
 ```
